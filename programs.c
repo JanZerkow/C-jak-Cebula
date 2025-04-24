@@ -69,3 +69,16 @@ void bubble(int arr[], int n)
         }
     }
 }
+
+void move(int arr[], int size)
+{
+    if (size <= 1)
+        return;
+
+    int temp = arr[size - 1];
+    for (int i = size - 1; i > 0; i--)
+    {
+        arr[i] = arr[i - 1];
+    }
+    arr[0] = temp;
+}
