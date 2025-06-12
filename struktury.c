@@ -76,18 +76,43 @@ void print_list(struct Node *head)
     struct Node *current = head;
     while (current != NULL)
     {
-        printf("%d -> ", current->data);
+        printf("%d ", current->data);
         current = current->next;
     }
     printf("NULL\n");
 }
+void usun_parzyste(struct Node **head)
+{
 
+    struct Node *wsk = *head;
+    while (wsk != NULL)
+    {
+        if (wsk->data % 2 == 0)
+        {
+            struct Node *next_node = wsk->next;
+            delete_node(head, wsk->data);
+        }
+        wsk = wsk -> next;
+        
+}
+}
+void freeList(struct Node *head)
+{
+    struct Node *current = head;
+    while (current != NULL)
+    {
+        struct Node *temp = current;
+        current = current->next;
+        free(temp);
+    }
+}
 int main()
 {
     struct Node *head = NULL;
-    insertAtEnd(&head, 10);
-    insertAtEnd(&head, 20);
-    insertAtStart(&head, 5);
-    insertAtEnd(&head, 30);
-    wypisz_pary(head);
+    wstawNaStart(&head, 10);
+    wstawNaKoniec(&head, 20);
+    wstawNaStart(&head, 5);
+    wstawNaKoniec(&head, 30);
+    usun_parzyste(&head);
+    print_list(head);
 }
