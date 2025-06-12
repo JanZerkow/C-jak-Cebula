@@ -70,6 +70,11 @@ void delete_node(struct Node **head, int value)
         prev = temp;
         temp = temp->next;
     }
+    if (temp != NULL)
+    {
+        prev->next = temp->next;
+        free(temp);
+    }
 }
 void print_list(struct Node *head)
 {
@@ -79,22 +84,21 @@ void print_list(struct Node *head)
         printf("%d ", current->data);
         current = current->next;
     }
-    printf("NULL\n");
 }
 void usun_parzyste(struct Node **head)
 {
 
     struct Node *wsk = *head;
+    struct Node *next_node;
     while (wsk != NULL)
     {
+        next_node = wsk->next;
         if (wsk->data % 2 == 0)
         {
-            struct Node *next_node = wsk->next;
             delete_node(head, wsk->data);
         }
-        wsk = wsk -> next;
-        
-}
+        wsk = next_node;
+    }
 }
 void freeList(struct Node *head)
 {
