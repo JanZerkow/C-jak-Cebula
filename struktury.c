@@ -4,59 +4,52 @@
 #include <stdbool.h>
 #include <string.h>
 
-struct Node
+struct element
+
 {
     int data;
-    struct Node *next;
+    struct element
+        *next;
 };
 
-struct Node *createNode(int value)
+struct element *createlement(int value)
 {
-    struct Node *newNode = malloc(sizeof(struct Node));
-    if (newNode == NULL)
-    {
-        printf("Memory allocation failed!\n");
-        exit(1);
-    }
-    newNode->data = value;
-    newNode->next = NULL;
-    return newNode;
+    struct element *newelement = malloc(sizeof(struct element));
+
+    newelement->data = value;
+    newelement->next = NULL;
+    return newelement;
 }
-void wstawNaStart(struct Node **head, int value)
+void wstawNaStart(struct element **head, int value)
 {
-    struct Node *newNode = createNode(value);
-    newNode->next = *head;
-    *head = newNode;
+    struct element*newelement = createlement(value);
+    newelement->next = *head;
+    *head = newelement;
 }
-void wstawNaKoniec(struct Node **head, int value)
+void wstawNaKoniec(struct element**head, int value)
 {
-    struct Node *newNode = createNode(value);
+    struct element
+        *newelement = createlement(value);
     if (*head == NULL)
     {
-        *head = newNode;
+        *head = newelement;
         return;
     }
-    struct Node *current = *head;
+    struct element
+        *current = *head;
     while (current->next != NULL)
     {
         current = current->next;
     }
-    current->next = newNode;
+    current->next = newelement;
 }
-void wypisz_pary(struct Node *p)
+void delete_element(struct element
+                        **head,
+                    int value)
 {
-    while (p != NULL)
-    {
-        if (p->data % 2 == 0)
-        {
-            printf("%d ", p->data);
-        }
-        p = p->next;
-    }
-}
-void delete_node(struct Node **head, int value)
-{
-    struct Node *temp = *head, *prev = NULL;
+    struct element
+        *temp = *head,
+        *prev = NULL;
 
     if (temp != NULL && temp->data == value)
     {
@@ -76,47 +69,82 @@ void delete_node(struct Node **head, int value)
         free(temp);
     }
 }
-void print_list(struct Node *head)
+void print_list(struct element
+                    *head)
 {
-    struct Node *current = head;
+    struct element
+        *current = head;
     while (current != NULL)
     {
         printf("%d ", current->data);
         current = current->next;
     }
 }
-void usun_parzyste(struct Node **head)
+void wypisz_pary(struct element
+                     *p)
 {
-
-    struct Node *wsk = *head;
-    struct Node *next_node;
-    while (wsk != NULL)
+    while (p != NULL)
     {
-        next_node = wsk->next;
-        if (wsk->data % 2 == 0)
+        if (p->data % 2 == 0)
         {
-            delete_node(head, wsk->data);
+            printf("%d ", p->data);
         }
-        wsk = next_node;
+        p = p->next;
     }
 }
-void freeList(struct Node *head)
+void usun_parzyste(struct element
+                       **head)
 {
-    struct Node *current = head;
+
+    struct element
+        *wsk = *head;
+    struct element
+        *next_element;
+    while (wsk != NULL)
+    {
+        next_element = wsk->next;
+        if (wsk->data % 2 == 0)
+        {
+            delete_element(head, wsk->data);
+        }
+        wsk = next_element;
+    }
+}
+void freeList(struct element
+                  *head)
+
+{
+    struct element
+        *current = head;
     while (current != NULL)
     {
-        struct Node *temp = current;
+        struct element
+            *temp = current;
         current = current->next;
         free(temp);
     }
 }
+float mean(struct element *head)
+{
+    float suma = 0;
+    float count = 0;
+    while (head != NULL)
+    {
+        suma += head->data;
+        count++;
+        head = head->next;
+    }
+    return suma / count;
+}
+
 int main()
 {
-    struct Node *head = NULL;
+    struct element
+        *head = NULL;
     wstawNaStart(&head, 10);
     wstawNaKoniec(&head, 20);
     wstawNaStart(&head, 5);
     wstawNaKoniec(&head, 30);
-    usun_parzyste(&head);
-    print_list(head);
+    float srednia = mean(head);
+    printf("%.2f", srednia);
 }
