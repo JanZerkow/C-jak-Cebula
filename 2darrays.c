@@ -26,7 +26,7 @@ void read_2d_array(int **arr, int rows, int cols)
         for (int j = 0; j < cols; j++)
             scanf("%d", &arr[i][j]);
 }
-void odwroc_kolumny(int n, int m, int tab[n][m])
+void odwroc_kolumny(int n, int m, int **tab)
 {
     for (int i = 0; i < n; i++)
     {
@@ -38,7 +38,7 @@ void odwroc_kolumny(int n, int m, int tab[n][m])
         }
     }
 }
-void odwroc_wiersze(int n, int m, int tab[n][m])
+void odwroc_wiersze_dynamic(int n, int m, int **tab)
 {
     for (int i = 0; i < n; i++)
     {
